@@ -13,13 +13,16 @@ connectDB();
 
 const app = express();
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 app.use('/api/users', userRoutes);
 
-// - **POST /api/users/** - Register a user
+// - **POST /api/users/** - Register a userclear
 // - **POST /api/users/auth** - Authenticate user and get token
 // - **POST /api/users/logout** - Logout user and clear token
 // - **GET /api/users/profile** - Get user profile
-// - **POST /api/users/profile** - Update user profile
+// - **PUT /api/users/profile** - Update user profile
 
 app.get('/', (req, res) => {
 	res.send('Server is ready!');
