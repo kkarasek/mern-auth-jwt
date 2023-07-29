@@ -3,6 +3,8 @@ import mongoose from 'mongoose';
 
 dotenv.config({ path: '../../.env' });
 
+// check the correct database config + database name in the uri
+
 const connectDB = async () => {
 	console.log(process.env.MONGO_URI);
 
