@@ -14,7 +14,7 @@ export const authUser = asyncHandler(async (req, res) => {
 
 	if (user && (await user.matchPassword(password))) {
 		generateToken(res, user._id);
-		res.status(200).json('User authenticated!');
+		res.status(200).json({ message: 'User authenticated!' });
 	} else {
 		res.status(401);
 		throw new Error('Invalid email or password');
