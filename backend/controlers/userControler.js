@@ -8,7 +8,17 @@ import generateToken from '../utils/generateToken.js';
 // @access  Public
 
 export const authUser = asyncHandler(async (req, res) => {
-	res.status(200).json({ message: 'User authentication done!!!' });
+	const { email, password } = req.body;
+
+	const user = await User.findOne({ email });
+
+	if (user && (await user.matchPassword(password))) {
+		generateToken(res, user._id);
+		res.status(200).json('User authenticated!');
+	} else {
+		res.status(401);
+		throw new Error('Invalid email or password');
+	}
 });
 
 // @desc    Register a new user
@@ -42,8 +52,6 @@ export const registerUser = asyncHandler(async (req, res) => {
 		res.status(400);
 		throw new Error('Invalid user data');
 	}
-
-	// res.status(200).json({ message: 'User registered!!!!' });
 });
 
 // @desc    Logout user
@@ -51,6 +59,9 @@ export const registerUser = asyncHandler(async (req, res) => {
 // @access  Public
 
 export const logoutUser = asyncHandler(async (req, res) => {
+	// res.cookie('jwt', '', { httpOnly: true, expires: new Date(0) });
+	res.clearCookie('jwt');
+
 	res.status(200).json({ message: 'User logged out' });
 });
 
