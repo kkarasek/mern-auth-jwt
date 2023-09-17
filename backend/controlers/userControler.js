@@ -91,7 +91,7 @@ export const updateUserProfile = asyncHandler(async (req, res) => {
 		user.email = req.body.email || user.email;
 
 		if (req.body.password) {
-			user.password = eq.body.password;
+			user.password = req.body.password;
 		}
 
 		const updatedUser = await user.save();
