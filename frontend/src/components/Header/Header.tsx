@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
 import { HamburgerMenuIcon, Cross1Icon } from '@radix-ui/react-icons';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -70,8 +71,10 @@ const Header = () => {
 					isOpen ? 'block' : 'hidden'
 				}  px-6 text-xl sm:flex sm:gap-3`}
 			>
-				<div className="mb-3">Sing In</div>
-				<div className="">Sign Up</div>
+				<div className="flex flex-col gap-3 sm:flex-row">
+					<Link to="/signin">Sing In</Link>
+					<Link to="/signup">Sign Up</Link>
+				</div>
 			</div>
 		</nav>
 	);
