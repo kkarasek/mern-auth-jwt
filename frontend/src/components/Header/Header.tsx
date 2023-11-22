@@ -32,7 +32,9 @@ const Header = () => {
 			} ease-in-out duration-700 motion-reduce:transition-none`}
 		>
 			<div className="flex p-6 justify-between items-center">
-				<h1 className="text-3xl animate-flicker">MERN Auth</h1>
+				<Link to="/" className="text-3xl animate-flicker">
+					MERN Auth
+				</Link>
 				<div className="sm:hidden">
 					{isOpen ? (
 						<button

@@ -6,9 +6,11 @@ import userRoutes from './routes/userRoutes.js';
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 import connectDB from './config/db.js';
 
-dotenv.config({ path: '../.env' });
+dotenv.config();
 
 const port = process.env.PORT || 6000;
+
+console.log('port:', process.env.PORT);
 
 connectDB();
 
