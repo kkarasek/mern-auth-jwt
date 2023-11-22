@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
 import { HamburgerMenuIcon, Cross1Icon } from '@radix-ui/react-icons';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -31,7 +32,9 @@ const Header = () => {
 			} ease-in-out duration-700 motion-reduce:transition-none`}
 		>
 			<div className="flex p-6 justify-between items-center">
-				<h1 className="text-3xl animate-flicker">MERN Auth</h1>
+				<Link to="/" className="text-3xl animate-flicker">
+					MERN Auth
+				</Link>
 				<div className="sm:hidden">
 					{isOpen ? (
 						<button
@@ -70,8 +73,10 @@ const Header = () => {
 					isOpen ? 'block' : 'hidden'
 				}  px-6 text-xl sm:flex sm:gap-3`}
 			>
-				<div className="mb-3">Sing In</div>
-				<div className="">Sign Up</div>
+				<div className="flex flex-col gap-3 sm:flex-row">
+					<Link to="/signin">Sing In</Link>
+					<Link to="/signup">Sign Up</Link>
+				</div>
 			</div>
 		</nav>
 	);
