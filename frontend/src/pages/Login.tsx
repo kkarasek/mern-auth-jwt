@@ -1,12 +1,39 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+
 import FormContainer from '../components/FormContainer/FormContainer';
+import { useLoginMutation } from '../redux/usersAPISlice';
+import { useAppSelector } from '../redux/store';
+import { setCredentials } from '../redux/authSlice';
 
 const Login = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
+
+	const [login, { isLoading }] = useLoginMutation();
+
+	const { userInfo } = useAppSelector((state) => state.auth);
+
+	useEffect(() => {
+		if (userInfo) {
+			navigate('/');
+		}
+	}, [navigate, userInfo]);
+
 	const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		// important
+		try {
+			const res = await login({ email, password }).unwrap();
+			dispatch(setCredentials({ ...res }));
+			navigate('/');
+		} catch (err) {
+			console.log(err);
+		}
 		console.log('Form submitted!');
 	};
 
@@ -26,7 +53,6 @@ const Login = () => {
 						value={email}
 						onChange={(e) => {
 							setEmail(e.target.value);
-							console.log(e.target.value);
 						}}
 					/>
 					{/* add label */}
@@ -37,7 +63,6 @@ const Login = () => {
 						value={password}
 						onChange={(e) => {
 							setPassword(e.target.value);
-							console.log(e.target.value);
 						}}
 					/>
 					<button
